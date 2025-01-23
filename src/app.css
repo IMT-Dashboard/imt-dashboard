@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'sf-pro';
+    src: url('SF-Pro.ttf') format("truetype");
+}
+
+body {
+    margin: 0;
+    font-family: 'sf-pro', sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: 700;
+}
+
+:root {
+    --text: hsl(180, 33%, 93%);
+    --background: hsl(0, 0%, 0%);
+    --primary: hsl(180, 48%, 74%);
+    --secondary: hsl(180, 55%, 33%);
+    --accent: hsl(180, 34%, 60%);
+}
+
+:root[data-theme="light"] {
+    --text: hsl(180, 33%, 7%);
+    --background: hsl(0, 0%, 100%);
+    --primary: hsl(180, 48%, 26%);
+    --secondary: hsl(180, 55%, 67%);
+    --accent: hsl(180, 34%, 40%);
+}
+:root[data-theme="dark"] {
+    --text: hsl(180, 33%, 93%);
+    --background: hsl(0, 0%, 0%);
+    --primary: hsl(180, 48%, 74%);
+    --secondary: hsl(180, 55%, 33%);
+    --accent: hsl(180, 34%, 60%);
+}
