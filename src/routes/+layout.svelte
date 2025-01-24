@@ -1,30 +1,32 @@
 <script lang="ts">
-	let { children } = $props();
+    import '../app.css';
 
-	$effect(() => {
-		let currentTheme = detectPreferredTheme();
-		setTheme(currentTheme);
-	});
+    let {children} = $props();
 
-	function setTheme(theme: string) {
-		document.documentElement.setAttribute('data-theme', theme);
-	}
+    $effect(() => {
+        let currentTheme = detectPreferredTheme();
+        setTheme(currentTheme);
+    });
 
-	function detectPreferredTheme() {
-		const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-		return prefersDark ? 'dark' : 'light';
-	}
+    function setTheme(theme: string) {
+        document.documentElement.setAttribute('data-theme', theme);
+    }
+
+    function detectPreferredTheme() {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        return prefersDark ? 'dark' : 'light';
+    }
 </script>
 
 <div class="app">
-	<main>
-		{@render children()}
-	</main>
+    <main>
+        {@render children()}
+    </main>
 </div>
 
 <style>
-	.app {
-		background-color: var(--background);
-		height: 100vh;
-	}
+    .app {
+        background-color: var(--background);
+        height: 100vh;
+    }
 </style>
