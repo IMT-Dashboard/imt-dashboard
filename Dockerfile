@@ -1,9 +1,5 @@
 FROM node:23-alpine AS dev
 
-ARG JWT_SECRET
-
-ENV JWT_SECRET=${JWT_SECRET}
-
 WORKDIR /app
 
 COPY package*.json ./
