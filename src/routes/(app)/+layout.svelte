@@ -6,7 +6,7 @@
 
 <div class="app">
 	<Sidebar />
-	<main>
+	<main class="main">
 		{@render children()}
 	</main>
 </div>
@@ -14,5 +14,6 @@
 <style>
 	.app {
 		background-color: var(--background);
+		display: flex;
 	}
 </style>

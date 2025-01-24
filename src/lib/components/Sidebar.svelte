@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { CurrentSemester, type Promotion, Semester } from '$lib/datas/semester';
+	import { CurrentSemester, type Promotion, Semester } from '$lib/data/semester';
 	import { faGear } from '@fortawesome/free-solid-svg-icons/faGear';
 	import Fa from 'svelte-fa';
 	import { faCalendar } from '@fortawesome/free-solid-svg-icons/faCalendar';
