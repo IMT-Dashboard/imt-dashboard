@@ -5,9 +5,12 @@
     import {CurrentSemester} from "$lib/data/semester";
 
     let modules: Module[] | null = $state(null);
+    let error: string | null = $state(null);
 
     $effect(() => {
-        modules = $academicRecordStore[CurrentSemester.infres17]?.modules ?? null;
+        const academicRecord = $academicRecordStore;
+        error = academicRecord.error ?? null;
+        modules = academicRecord[CurrentSemester.infres17]?.modules;
     })
 </script>
 
@@ -15,12 +18,14 @@
 <div class="modules">
     <h2>Modules</h2>
     <div class="modules-list">
-        {#if modules}
+        {#if modules && !error}
             {#each modules as module}
                 <ModuleItem {module}/>
             {/each}
-        {:else}
+        {:else if !modules && !error}
             <p>Loading...</p>
+        {:else}
+            <p>{error}</p>
         {/if}
     </div>
 </div>

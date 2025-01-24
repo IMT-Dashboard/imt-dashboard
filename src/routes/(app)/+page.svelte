@@ -18,10 +18,13 @@
 
     async function load() {
         const req = await fetch('/api/academic-record/5')
-        const rep = await req.json()
-        console.log(rep)
-
-        academicRecordStore.set(rep)
+        if (req.ok) {
+            const rep = await req.json()
+            academicRecordStore.set(rep)
+        } else {
+            console.error('Error while fetching academic record')
+            academicRecordStore.set({error: 'Error while fetching academic record'})
+        }
     }
 
 </script>

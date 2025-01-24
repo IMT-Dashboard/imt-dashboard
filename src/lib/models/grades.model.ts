@@ -5,6 +5,7 @@ export interface AcademicRecord {
 		grades: Grade[];
 		modules: Module[];
 	};
+	error?: string;
 }
 
 export enum LetterGrade {
