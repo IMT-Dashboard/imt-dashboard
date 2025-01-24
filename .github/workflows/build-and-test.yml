@@ -3,12 +3,7 @@ name: Build and Test Pipeline
 on:
   push:
     branches:
-      - master
-    tags:
-      - 'v*'
-  pull_request:
-    types:
-      - closed
+      - '*'
 
 jobs:
   build-and-test:
