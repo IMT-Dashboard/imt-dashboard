@@ -1,36 +1,62 @@
 @font-face {
-    font-family: 'sf-pro';
-    src: url('SF-Pro.ttf') format("truetype");
+    font-family: "San Francisco Ultralight";
+    font-style: normal;
+    font-weight: 400;
+    src: url("/fonts/sanfrancisco-ultralight.woff2") format("woff2")
+}
+
+@font-face {
+    font-family: "San Francisco Thin";
+    font-style: normal;
+    font-weight: 400;
+    src: url("/fonts/sanfrancisco-thin.woff2") format("woff2")
+}
+
+@font-face {
+    font-family: "San Francisco Medium";
+    font-style: normal;
+    font-weight: 400;
+    src: url("/fonts/sanfrancisco-medium.woff2") format("woff2")
+}
+
+@font-face {
+    font-family: "San Francisco Semibold";
+    font-style: normal;
+    font-weight: 400;
+    src: url("/fonts/sanfrancisco-semibold.woff2") format("woff2")
+}
+
+@font-face {
+    font-family: "San Francisco Bold";
+    font-style: normal;
+    font-weight: 400;
+    src: url("/fonts/sanfrancisco-bold.woff2") format("woff2")
 }
 
 body {
     margin: 0;
-    font-family: 'sf-pro', sans-serif;
+    font-family: 'San Francisco Medium', sans-serif;
 }
 
 h1, h2, h3, h4, h5 {
-    font-weight: 700;
+    font-family: 'San Francisco Semibold', sans-serif;
 }
 
-:root {
-    --text: hsl(180, 33%, 93%);
-    --background: hsl(0, 0%, 0%);
-    --primary: hsl(180, 48%, 74%);
-    --secondary: hsl(180, 55%, 33%);
-    --accent: hsl(180, 34%, 60%);
+.icon {
+    color: var(--primary);
 }
 
 :root[data-theme="light"] {
-    --text: hsl(180, 33%, 7%);
-    --background: hsl(0, 0%, 100%);
-    --primary: hsl(180, 48%, 26%);
-    --secondary: hsl(180, 55%, 67%);
-    --accent: hsl(180, 34%, 40%);
+    --text: #0d161c;
+    --background: #ecf4f8;
+    --primary: #1d5472;
+    --secondary: #6ebbe7;
+    --accent: #0f81c2;
 }
 :root[data-theme="dark"] {
-    --text: hsl(180, 33%, 93%);
-    --background: hsl(0, 0%, 0%);
-    --primary: hsl(180, 48%, 74%);
-    --secondary: hsl(180, 55%, 33%);
-    --accent: hsl(180, 34%, 60%);
+    --text: #e3ecf2;
+    --background: #070f13;
+    --primary: #8dc4e2;
+    --secondary: #186491;
+    --accent: #3daef0;
 }

@@ -1,9 +1,22 @@
 <script lang="ts">
-	let semesters: string[] = [];
+	import { CurrentSemester, type Promotion, Semester } from '$lib/datas/semester';
+	import { faGear } from '@fortawesome/free-solid-svg-icons/faGear';
+	import Fa from 'svelte-fa';
+	import { faCalendar } from '@fortawesome/free-solid-svg-icons/faCalendar';
+	import { faFolderOpen } from '@fortawesome/free-solid-svg-icons/faFolderOpen';
 
-	function getPreviousSemesters() {}
+	let promotion: Promotion = 'infres16'; // TODO: Do not use hardcoded value
 
-	function setSemester() {}
+	let semesters: number[] = getPreviousSemesters();
+	let selected = $state(CurrentSemester[promotion]);
+
+	function getPreviousSemesters() {
+		const semestersForPromotion = Object.keys(Semester[promotion])
+			.map((element) => parseInt(element))
+			.sort((a, b) => a - b);
+		const currentSemester = CurrentSemester[promotion];
+		return semestersForPromotion.filter((semester) => semester <= currentSemester);
+	}
 </script>
 
 <div class="sidebar-container">
@@ -13,10 +26,23 @@
 			<h1>Dashboard</h1>
 		</div>
 		<div>
-			<h2>Notes</h2>
-			<h2>Planning</h2>
-			<h2>Documents</h2>
-			<h2>Paramètres</h2>
+			<select id="semester" name="semester" bind:value={selected}>
+				{#each semesters as semester}
+					<option value={semester}>Semestre {semester}</option>
+				{/each}
+			</select>
+			<a class="link" href="/planning">
+				<Fa icon={faCalendar} class="icon" />
+				Planning
+			</a>
+			<a class="link" href="/documents">
+				<Fa icon={faFolderOpen} class="icon" />
+				Documents
+			</a>
+			<a class="link" href="/settings">
+				<Fa icon={faGear} class="icon" />
+				Paramètres
+			</a>
 		</div>
 	</div>
 </div>
@@ -43,15 +69,21 @@
 		gap: 0.5rem;
 	}
 
-	h1 {
-		font-size: 1.2rem;
-		color: var(--text);
+	.icon {
+		margin-right: 1rem;
+		width: 1rem;
 	}
 
-	h2 {
-		opacity: 70%;
+	.link {
+		display: inline-block;
+		color: var(--text);
 		font-size: 1rem;
 		font-weight: normal;
+		text-decoration: none;
+	}
+
+	h1 {
+		font-size: 1.2rem;
 		color: var(--text);
 	}
 

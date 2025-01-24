@@ -1,4 +1,6 @@
-export const Semester = {
+export type Promotion = 'infres16' | 'infres17';
+
+export const Semester: { [key in Promotion]: { [key: number]: string } } = {
 	infres16: {
 		5: '971',
 		6: '972',
@@ -13,7 +15,7 @@ export const Semester = {
 	}
 };
 
-export const CurrentSemester = {
+export const CurrentSemester: { [key in Promotion]: number } = {
 	infres16: 7,
 	infres17: 5
 };

@@ -13,10 +13,10 @@ export const handle: Handle = async ({ event, resolve }) => {
 			verifyJwt(event.cookies);
 		} catch (err: any) {
 			event.cookies.delete('authToken', { path: '/' });
-			redirect(303, '/login');
+			// redirect(303, '/login');
 		}
 		if (!gradesCookie || !authCookie || !edtCookie) {
-			redirect(303, '/login');
+			// redirect(303, '/login');
 		}
 	}
 	return resolve(event);
@@ -24,4 +24,5 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 export const init: ServerInit = async () => {
 	// await db.connect();
+	console.log('up!');
 };
