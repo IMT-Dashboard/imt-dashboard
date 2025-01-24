@@ -1,8 +1,4 @@
 <script lang="ts">
-	import Sidebar from '$lib/components/Sidebar.svelte';
-
-	import '../app.css';
-
 	let { children } = $props();
 
 	$effect(() => {
@@ -21,7 +17,6 @@
 </script>
 
 <div class="app">
-	<Sidebar />
 	<main>
 		{@render children()}
 	</main>
@@ -29,6 +24,7 @@
 
 <style>
 	.app {
-		background-color: var(--background-50);
+		background-color: var(--background);
+		height: 100vh;
 	}
 </style>
