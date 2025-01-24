@@ -15,7 +15,9 @@ jobs:
 
       - name: Set up .env file
         run: |
-          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" > .env
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
+          echo "SALT_PASSWORD=${{ secrets.SALT_PASSWORD }}" >> .env
+          echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> .env
 
       - name: Login to DockerHub
         if: github.event.pull_request.merged == true || startsWith(github.ref, 'refs/tags/')
