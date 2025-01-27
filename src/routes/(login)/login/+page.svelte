@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import type { Feedback } from '$lib/models/feedback';
+	import type { Feedback } from '$lib/models/feedback.model';
 	import CircleLoader from '$lib/components/CircleLoader.svelte';
 
 	let feedback: Feedback | null = $state(null);

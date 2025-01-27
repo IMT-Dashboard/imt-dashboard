@@ -1,5 +1,5 @@
 import type { Cookies } from '@sveltejs/kit';
-import type { User } from '$lib/models/user';
+import type { User } from '$lib/models/user.model';
 import jwt, { type JwtPayload } from 'jsonwebtoken';
 import { JWT_SECRET } from '$env/static/private';
 

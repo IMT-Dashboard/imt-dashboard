@@ -38,34 +38,34 @@ body {
     font-family: 'San Francisco Medium', sans-serif;
 }
 
+p {
+    color: var(--text);
+    margin: 0;
+}
+
 h1, h2, h3, h4, h5 {
     font-family: 'San Francisco Semibold', sans-serif;
-    margin-top: 0;
+    margin: 0;
     font-weight: 700;
     color: var(--text);
+}
+
+.title {
+    padding-left: 10px;
 }
 
 .icon {
     color: var(--primary);
 }
 
-:root[data-theme="light"] {
-    --text: #0d161c;
-    --background: #ecf4f8;
-    --primary: #1d5472;
-    --secondary: #6ebbe7;
-    --accent: #0f81c2;
-}
-:root[data-theme="dark"] {
-    --text: #e3ecf2;
-    --background: #070f13;
-    --primary: #8dc4e2;
-    --secondary: #186491;
-    --accent: #3daef0;
-}
-
 :root {
-    --error: #ff0000
+    --error: #ff0000;
+    --letter-f: #ea3628;
+    --letter-e: #ec5c2e;
+    --letter-d: #f0943b;
+    --letter-c: #dbc030;
+    --letter-b: #86b32c;
+    --letter-a: #67ce3d;
 }
 
 :root[data-theme="light"] {
@@ -117,4 +117,29 @@ input {
     font-size: 14px;
     border: 2px solid #4f4f4f;
     font-family: 'sf-pro', sans-serif;
+}
+
+
+.note-module-f {
+    background-color: var(--letter-f);
+}
+
+.note-module-e {
+    background-color: var(--letter-e);
+}
+
+.note-module-d {
+    background-color: var(--letter-d);
+}
+
+.note-module-c {
+    background-color: var(--letter-c)
+}
+
+.note-module-b {
+    background-color: var(--letter-b);
+}
+
+.note-module-a {
+    background-color: var(--letter-a);
 }
