@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { CurrentSemester, type Promotion, Semester } from '$lib/data/semester';
+	import { CurrentSemester, type Promotion } from '$lib/data/semester';
 	import { faGear } from '@fortawesome/free-solid-svg-icons/faGear';
-	import Fa from 'svelte-fa';
 	import { faCalendar } from '@fortawesome/free-solid-svg-icons/faCalendar';
 	import { faFolderOpen } from '@fortawesome/free-solid-svg-icons/faFolderOpen';
-	import {getPreviousSemesters} from "$lib/utils";
+	import { getPreviousSemesters } from '$lib/utils';
+	import Fa from 'svelte-fa';
 
 	let promotion: Promotion = 'infres16'; // TODO: Do not use hardcoded value
 	let semesters: number[] = getPreviousSemesters(promotion);
@@ -28,11 +28,13 @@
 				<Fa icon={faCalendar} class="icon" />
 				Planning
 			</a>
-			<a class="link" href="/documents">
+			<!--			<a class="link" href="/documents">-->
+			<a class="link">
 				<Fa icon={faFolderOpen} class="icon" />
 				Documents
 			</a>
-			<a class="link" href="/settings">
+			<!--			<a class="link" href="/settings">-->
+			<a class="link">
 				<Fa icon={faGear} class="icon" />
 				Paramètres
 			</a>

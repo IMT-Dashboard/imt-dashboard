@@ -1,7 +1,7 @@
 <script lang="ts">
 	import SubjectModal from '$lib/components/planning/SubjectModal.svelte';
 	import type { Subject } from '$lib/models/schedule.model';
-	import { formatHours, transformTextInColor } from '$lib/server/miscellaneous.utils';
+	import { formatHours, transformTextInColor } from '$lib/utils/miscellaneous.utils';
 
 	const { subject } = $props<{ subject: Subject }>();
 
@@ -17,7 +17,8 @@
 	}
 </script>
 
-<SubjectModal bind:showModal {subject}></SubjectModal>
+<!--TODO: BUG: WE CAN ONLY CLICK ONCE ON THE MODAL, THEN IT DOESN'T OPEN ANYMORE-->
+<SubjectModal bind:showModal {subject} />
 
 <div
 	aria-label="Cliquez pour voir les détails"
@@ -61,6 +62,7 @@
 		overflow: hidden;
 		cursor: pointer;
 	}
+
 	p {
 		margin: 0;
 	}

@@ -1,9 +1,9 @@
-import type { Cookies } from '@sveltejs/kit';
 import type { User } from '$lib/models/user.model';
 import jwt, { type JwtPayload } from 'jsonwebtoken';
 import { JWT_SECRET } from '$env/static/private';
 
-export function jwtDecode(authToken: string): User | null {
+export function jwtDecode(authToken: string | undefined): User | null {
+	if (!authToken) return null;
 	const decoded = jwt.decode(authToken) as JwtPayload;
 	return decoded as User;
 }

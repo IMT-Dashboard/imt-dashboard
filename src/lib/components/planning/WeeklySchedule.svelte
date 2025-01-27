@@ -1,28 +1,29 @@
 <script lang="ts">
 	import WeeklySubject from '$lib/components/planning/WeeklySubject.svelte';
 	import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-	import Fa from 'svelte-fa';
 	import type { Subject } from '$lib/models/schedule.model';
-	import { getDayOfDate, isDateInWeek } from '$lib/server/miscellaneous.utils';
 	import { scheduleStore } from '$lib/store/schedule.store';
 	import CircleLoader from '$lib/components/CircleLoader.svelte';
-	import { fillScheduleStore } from '$lib/server/planning.util';
+	import { fillScheduleStore } from '$lib/utils/planning.util';
+	import { getDayOfDate, isDateInWeek } from '$lib/utils/miscellaneous.utils';
+	import { appStore } from '$lib/store/app.store';
+	import Fa from 'svelte-fa';
+
+	const { isPlanningLoaded } = $props();
 
 	let schedule: Subject[] = $state([]);
 
-	let day = $state(new Date());
+	let day = $state(startOfWeek());
 	let error = $state(false);
 	let weeklySchedule: { [key: string]: Subject[] } = $state({});
 
 	$effect(() => {
-		day = startOfWeek(day);
-		loadSchedule();
-		$effect(() => {
-			schedule = $scheduleStore;
-		});
+		if (isPlanningLoaded || $appStore.isPlanningLoaded) {
+			loadSchedule();
+		}
 	});
 
-	function startOfWeek(date: Date) {
+	function startOfWeek(date: Date = new Date()) {
 		const dayOffset = date.getDay() - 1; // Start week on Monday
 		return new Date(date.getTime() - dayOffset * 24 * 60 * 60 * 1000);
 	}
@@ -30,6 +31,7 @@
 	async function loadSchedule() {
 		if (!Object.keys(schedule).length) {
 			await fillScheduleStore();
+			schedule = $scheduleStore;
 		}
 		filterScheduleByWeek();
 	}
@@ -99,7 +101,7 @@
 			{/each}
 
 			<!-- Subjects -->
-			{#each Object.entries(weeklySchedule) as [dayKey, subjects]}
+			{#each Object.entries(weeklySchedule) as [_, subjects]}
 				{#each subjects as subject}
 					<WeeklySubject {subject}></WeeklySubject>
 				{/each}

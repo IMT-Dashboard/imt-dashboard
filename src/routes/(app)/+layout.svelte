@@ -16,6 +16,7 @@
 		flex: 1;
 		color: var(--text);
 	}
+
 	.app {
 		background-color: var(--background);
 		display: flex;

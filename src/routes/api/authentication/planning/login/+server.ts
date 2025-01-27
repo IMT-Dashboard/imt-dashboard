@@ -1,12 +1,9 @@
-import { setPlanningLoadedState } from '$lib/store/app.store';
 import { json, type RequestHandler } from '@sveltejs/kit';
 import FormData from 'form-data';
 import axios from 'axios';
 import { decrypt } from '$lib/server/password.utils';
 
 export const POST: RequestHandler = async ({ request, cookies }) => {
-	setPlanningLoadedState(false);
-
 	const formData = await request.formData();
 	let username = formData.get('username') as string;
 	let password = formData.get('password') as string;
@@ -21,8 +18,6 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 		path: '/',
 		expires: new Date(Date.now() + 1000 * 60 * 60)
 	});
-
-	setPlanningLoadedState(true);
 
 	return json({ message: 'Successfully logged to planning' });
 };

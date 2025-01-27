@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import type { Feedback } from '$lib/models/feedback.model';
 	import CircleLoader from '$lib/components/CircleLoader.svelte';
+	import { setPlanningLoadedState } from '$lib/store/app.store';
 
 	let feedback: Feedback | null = $state(null);
 	let username = $state('');
@@ -28,6 +29,7 @@
 	}
 
 	async function planningLogin(username: string, password: string, isEncrypted = false) {
+		setPlanningLoadedState(false);
 		const formData = new FormData();
 		formData.append('username', username);
 		formData.append(isEncrypted ? 'encryptedPassword' : 'password', password);
@@ -37,7 +39,9 @@
 				method: 'POST',
 				body: formData
 			});
-			if (!response.ok) {
+			if (response.ok) {
+				setPlanningLoadedState(true);
+			} else {
 				localStorage.removeItem('keepConnected');
 				feedback = {
 					type: 'error',

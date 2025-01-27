@@ -1,147 +1,150 @@
 @font-face {
-    font-family: "San Francisco Ultralight";
-    font-style: normal;
-    font-weight: 400;
-    src: url("/fonts/sanfrancisco-ultralight.woff2") format("woff2")
+	font-family: 'San Francisco Ultralight';
+	font-style: normal;
+	font-weight: 400;
+	src: url('/fonts/sanfrancisco-ultralight.woff2') format('woff2');
 }
 
 @font-face {
-    font-family: "San Francisco Thin";
-    font-style: normal;
-    font-weight: 400;
-    src: url("/fonts/sanfrancisco-thin.woff2") format("woff2")
+	font-family: 'San Francisco Thin';
+	font-style: normal;
+	font-weight: 400;
+	src: url('/fonts/sanfrancisco-thin.woff2') format('woff2');
 }
 
 @font-face {
-    font-family: "San Francisco Medium";
-    font-style: normal;
-    font-weight: 400;
-    src: url("/fonts/sanfrancisco-medium.woff2") format("woff2")
+	font-family: 'San Francisco Medium';
+	font-style: normal;
+	font-weight: 400;
+	src: url('/fonts/sanfrancisco-medium.woff2') format('woff2');
 }
 
 @font-face {
-    font-family: "San Francisco Semibold";
-    font-style: normal;
-    font-weight: 400;
-    src: url("/fonts/sanfrancisco-semibold.woff2") format("woff2")
+	font-family: 'San Francisco Semibold';
+	font-style: normal;
+	font-weight: 400;
+	src: url('/fonts/sanfrancisco-semibold.woff2') format('woff2');
 }
 
 @font-face {
-    font-family: "San Francisco Bold";
-    font-style: normal;
-    font-weight: 400;
-    src: url("/fonts/sanfrancisco-bold.woff2") format("woff2")
+	font-family: 'San Francisco Bold';
+	font-style: normal;
+	font-weight: 400;
+	src: url('/fonts/sanfrancisco-bold.woff2') format('woff2');
 }
 
 body {
-    margin: 0;
-    font-family: 'San Francisco Medium', sans-serif;
+	margin: 0;
+	font-family: 'San Francisco Medium', sans-serif;
 }
 
 p {
-    color: var(--text);
-    margin: 0;
+	color: var(--text);
+	margin: 0;
 }
 
-h1, h2, h3, h4, h5 {
-    font-family: 'San Francisco Semibold', sans-serif;
-    margin: 0;
-    font-weight: 700;
-    color: var(--text);
+h1,
+h2,
+h3,
+h4,
+h5 {
+	font-family: 'San Francisco Semibold', sans-serif;
+	margin: 0;
+	font-weight: 700;
+	color: var(--text);
 }
 
 .title {
-    padding-left: 10px;
+	padding-left: 10px;
 }
 
 .icon {
-    color: var(--primary);
-    margin-right: 1rem;
-    width: 1rem;
+	color: var(--primary);
+	margin-right: 1rem;
+	width: 1rem;
 }
 
 :root {
-    --error: #ff0000;
-    --letter-f: #ea3628;
-    --letter-e: #ec5c2e;
-    --letter-d: #f0943b;
-    --letter-c: #dbc030;
-    --letter-b: #86b32c;
-    --letter-a: #67ce3d;
+	--error: #ff0000;
+	--letter-f: #ea3628;
+	--letter-e: #ec5c2e;
+	--letter-d: #f0943b;
+	--letter-c: #dbc030;
+	--letter-b: #86b32c;
+	--letter-a: #67ce3d;
 }
 
-:root[data-theme="light"] {
-    --text: #080912;
-    --background: #fbfbfe;
-    --primary: #233ccd;
-    --secondary: #dddbff;
-    --accent: #2a41c0;
+:root[data-theme='light'] {
+	--text: #080912;
+	--background: #fbfbfe;
+	--primary: #233ccd;
+	--secondary: #dddbff;
+	--accent: #2a41c0;
 }
 
-:root[data-theme="dark"] {
-    --text: #edeef7;
-    --background: #010104;
-    --primary: #334bdc;
-    --secondary: #020024;
-    --accent: #3e55d5;
+:root[data-theme='dark'] {
+	--text: #edeef7;
+	--background: #010104;
+	--primary: #334bdc;
+	--secondary: #020024;
+	--accent: #3e55d5;
 }
 
 label {
-    font-size: 13px;
-    color: #7a7a7a;
-    font-weight: 500;
-    margin-bottom: 5px;
-    margin-left: 2px;
+	font-size: 13px;
+	color: #7a7a7a;
+	font-weight: 500;
+	margin-bottom: 5px;
+	margin-left: 2px;
 }
 
 button {
-    background-color: var(--primary);
-    color: var(--text);
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-weight: 500;
-    font-size: 16px;
-    cursor: pointer;
+	background-color: var(--primary);
+	color: var(--text);
+	border: none;
+	border-radius: 5px;
+	padding: 10px 20px;
+	font-weight: 500;
+	font-size: 16px;
+	cursor: pointer;
 }
 
 button:disabled {
-    background-color: #c5c5c5;
-    cursor: not-allowed;
+	background-color: #c5c5c5;
+	cursor: not-allowed;
 }
 
 button:hover {
 }
 
 input {
-    padding: 10px 15px;
-    border-radius: 8px;
-    font-size: 14px;
-    border: 2px solid #4f4f4f;
-    font-family: 'sf-pro', sans-serif;
+	padding: 10px 15px;
+	border-radius: 8px;
+	font-size: 14px;
+	border: 2px solid #4f4f4f;
+	font-family: 'sf-pro', sans-serif;
 }
 
-
 .note-module-f {
-    background-color: var(--letter-f);
+	background-color: var(--letter-f);
 }
 
 .note-module-e {
-    background-color: var(--letter-e);
+	background-color: var(--letter-e);
 }
 
 .note-module-d {
-    background-color: var(--letter-d);
+	background-color: var(--letter-d);
 }
 
 .note-module-c {
-    background-color: var(--letter-c)
+	background-color: var(--letter-c);
 }
 
 .note-module-b {
-    background-color: var(--letter-b);
+	background-color: var(--letter-b);
 }
 
 .note-module-a {
-    background-color: var(--letter-a);
+	background-color: var(--letter-a);
 }

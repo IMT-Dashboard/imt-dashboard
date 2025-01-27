@@ -5,15 +5,15 @@ import type { Subject } from '$lib/models/schedule.model';
 import { verifyAndDecode } from '$lib/server/jwt';
 
 export const GET: RequestHandler = async ({ cookies, fetch }) => {
-	const cookie = cookies.get('PHPSESSID');
+	const sessId = cookies.get('PHPSESSID');
 
 	const user = verifyAndDecode(cookies.get('authToken'));
 	if (!user) error(401, 'Unauthorized');
 
 	const calendarResponse = await axios.get(
-		`https://webdfd.mines-ales.fr/planning-eleves/index.php?url=ics/eleve/${user?.id}`,
+		`https://webdfd.mines-ales.fr/planning-eleves/index.php?url=ics/eleve/${user.id}`,
 		{
-			headers: { Cookie: `PHPSESSID=${cookie}` },
+			headers: { Cookie: `PHPSESSID=${sessId}` },
 			responseType: 'arraybuffer',
 			responseEncoding: 'latin1'
 		}

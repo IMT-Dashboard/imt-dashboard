@@ -1,7 +1,12 @@
 import { type Handle, redirect, type ServerInit } from '@sveltejs/kit';
 import { verifyJwt } from '$lib/server/jwt';
 
-const unProtectedRoutes = ['/login', '/api/authentication/login', '/api/authentication/user'];
+const unProtectedRoutes = [
+	'/login',
+	'/api/authentication/login',
+	'/api/authentication/user',
+	'/api/authentication/planning/login'
+];
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const gradesCookie = event.cookies.get('cybernotes');
