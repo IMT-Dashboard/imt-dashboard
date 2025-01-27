@@ -2,7 +2,9 @@
     import Masonry from 'svelte-bricks';
     import GradesList from "$lib/components/grade/GradesList.svelte";
     import ModulesList from "$lib/components/module/ModulesList.svelte";
+    import type {AcademicRecord} from "$lib/models/grades.model";
     import {academicRecordStore} from "../../stores/academic-record.store";
+    import {getPreviousSemesters} from "$lib/utils";
 
     let items = [GradesList, ModulesList];
 
@@ -11,21 +13,47 @@
     let gap = 20;
     let width: number, height: number;
 
-    // TODO STUB
     $effect(() => {
-        load()
+        // TODO STUB VALUE
+        fetchAcademicRecords(getPreviousSemesters("infres16"));
     });
 
-    async function load() {
-        const req = await fetch('/api/academic-record/5')
-        if (req.ok) {
-            const rep = await req.json()
-            academicRecordStore.set(rep)
-        } else {
-            console.error('Error while fetching academic record')
-            academicRecordStore.set({error: 'Error while fetching academic record'})
-        }
+    async function fetchAcademicRecords(semesters: number[]) {
+        const academicRecord: AcademicRecord = {hasError: false};
+
+        await Promise.all(
+            semesters.map(async (semester) => {
+                try {
+                    const response = await fetch(`/api/academic-record/${semester}`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        academicRecord[semester] = {
+                            ...data[semester]
+                        };
+                    } else {
+                        console.error(`Error fetching data for semester ${semester}`);
+                        academicRecord[semester] = {
+                            isAllowed: false,
+                            grades: [],
+                            modules: [],
+                            error: `Error fetching data for semester ${semester}`
+                        };
+                    }
+                } catch (err) {
+                    console.error(`Network error for semester ${semester}:`, err);
+                    academicRecord[semester] = {
+                        isAllowed: false,
+                        grades: [],
+                        modules: [],
+                        error: `Network error for semester ${semester}`
+                    };
+                    academicRecord.hasError = true;
+                }
+            })
+        );
+        academicRecordStore.set(academicRecord);
     }
+
 
 </script>
 

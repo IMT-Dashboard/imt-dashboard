@@ -47,7 +47,7 @@ async function getAcademicRecord(semester: number, promotion: Promotion, cookies
 
 	for (const module of modulesTemp) {
 		const associatedGrades = grades[semester].grades.filter((g) => g.associatedModule === module.name);
-		let sum = associatedGrades.map((value) => value.grade * value.coeff).reduce((acc, value) => acc + value, 0);
+		let sum = associatedGrades.map((value) => value.mark * value.coeff).reduce((acc, value) => acc + value, 0);
 		let coeffSum = associatedGrades.map((value) => value.coeff).reduce((acc, value) => acc + value, 0);
 		const average = sum / coeffSum;
 		const previousLetterNumber = grades[semester].gpa!.letters[module.letterGrade] ?? 0;
@@ -57,7 +57,7 @@ async function getAcademicRecord(semester: number, promotion: Promotion, cookies
 		grades[semester].modules.push({
 			name: module.name,
 			ects: module.ects,
-			grade: !isNaN(average) ? average : undefined,
+			mark: !isNaN(average) ? average : undefined,
 			letterGrade: module.letterGrade
 		} as Module);
 	}
@@ -119,11 +119,11 @@ function parseGrades(html: string, semester: number): [AcademicRecord, Module[]]
 				const ects = rawEcts ? rawEcts[0] : '0 ECTS';
 				const module = rawSubject.replace(/\s\(\d{2}\/\d{2}\/\d{4}\)/, '').trim();
 				const letterGrade = rawGrade;
-				modules.push({ name: module, ects, grade: undefined, letterGrade } as Module);
+				modules.push({ name: module, ects, mark: undefined, letterGrade } as Module);
 			} else {
 				grades[semester].grades.push({
 					name: subject,
-					grade,
+					mark: grade,
 					associatedModule,
 					coeff
 				});

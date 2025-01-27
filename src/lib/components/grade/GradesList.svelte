@@ -5,17 +5,17 @@
     import {CurrentSemester} from "$lib/data/semester";
 
     let grades: Grade[] | null = $state(null);
-    let error: string | null = $state(null);
+    let error: boolean = $state(false);
 
     $effect(() => {
         const academicRecord = $academicRecordStore;
-        error = academicRecord.error ?? null;
-        grades = academicRecord[CurrentSemester.infres17]?.grades ?? null;
+        error = academicRecord.hasError;
+        grades = academicRecord[CurrentSemester.infres16]?.grades ?? null;
     })
 </script>
 
 <div class="grades">
-    <h2>Grades</h2>
+    <h2 class="title">Dernières notes</h2>
     <div class="grades-list">
         {#if grades && !error}
             {#each grades as grade}
@@ -33,12 +33,11 @@
     .grades {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 10px;
     }
 
     .grades-list {
         display: flex;
         flex-direction: column;
-        gap: 20px;
     }
 </style>

@@ -5,15 +5,14 @@
     import {CurrentSemester} from "$lib/data/semester";
 
     let modules: Module[] | null = $state(null);
-    let error: string | null = $state(null);
+    let error: boolean = $state(false);
 
     $effect(() => {
         const academicRecord = $academicRecordStore;
-        error = academicRecord.error ?? null;
-        modules = academicRecord[CurrentSemester.infres17]?.modules;
+        error = academicRecord.hasError;
+        modules = academicRecord[CurrentSemester.infres16]?.modules;
     })
 </script>
-
 
 <div class="modules">
     <h2>Modules</h2>
@@ -40,6 +39,5 @@
     .modules-list {
         display: flex;
         flex-direction: column;
-        gap: 20px;
     }
 </style>

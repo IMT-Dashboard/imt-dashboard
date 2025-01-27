@@ -4,19 +4,12 @@
 	import Fa from 'svelte-fa';
 	import { faCalendar } from '@fortawesome/free-solid-svg-icons/faCalendar';
 	import { faFolderOpen } from '@fortawesome/free-solid-svg-icons/faFolderOpen';
+	import {getPreviousSemesters} from "$lib/utils";
 
 	let promotion: Promotion = 'infres16'; // TODO: Do not use hardcoded value
+	let semesters: number[] = getPreviousSemesters(promotion);
 
-	let semesters: number[] = getPreviousSemesters();
 	let selected = $state(CurrentSemester[promotion]);
-
-	function getPreviousSemesters() {
-		const semestersForPromotion = Object.keys(Semester[promotion])
-			.map((element) => parseInt(element))
-			.sort((a, b) => a - b);
-		const currentSemester = CurrentSemester[promotion];
-		return semestersForPromotion.filter((semester) => semester <= currentSemester);
-	}
 </script>
 
 <div class="sidebar-container">

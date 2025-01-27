@@ -4,8 +4,9 @@ export interface AcademicRecord {
 		gpa?: Gpa;
 		grades: Grade[];
 		modules: Module[];
+		error?: string;
 	};
-	error?: string;
+	hasError: boolean;
 }
 
 export enum LetterGrade {
@@ -43,7 +44,7 @@ export interface ModuleDetails {
 export interface Module {
 	name: string;
 	ects: string;
-	grade: number | undefined;
+	mark: number | undefined;
 	calculatedGrade: number | undefined;
 	letterGrade: LetterGrade;
 	details?: ModuleDetails;
@@ -51,7 +52,7 @@ export interface Module {
 
 export interface Grade {
 	name: string;
-	grade: number;
+	mark: number;
 	associatedModule: string | null;
 	coeff: number;
 	details?: Details;
