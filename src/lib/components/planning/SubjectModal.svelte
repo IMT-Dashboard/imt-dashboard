@@ -7,11 +7,15 @@
 	export let subject: Subject;
 </script>
 
+<!--INVESTIGATE-->
+
 <Modal bind:showModal>
-	<div class="header" slot="header">
-		<div class="bar" style={'background-color: ' + transformTextInColor(subject.summary)}></div>
-		<h2 class="modal-summary-text">{subject.summary}</h2>
-	</div>
+	{#snippet header()}
+		<div class="header">
+			<div class="bar" style={'background-color: ' + transformTextInColor(subject.summary)}></div>
+			<h2 class="modal-summary-text">{subject.summary}</h2>
+		</div>
+	{/snippet}
 	<div class="modal-box">
 		<p>{formatHours(subject.start)} - {formatHours(subject.end)}</p>
 		<p>Salle : {subject.location}</p>

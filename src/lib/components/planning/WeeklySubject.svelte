@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SubjectModal from '$lib/components/schedule/SubjectModal.svelte';
+	import SubjectModal from '$lib/components/planning/SubjectModal.svelte';
 	import type { Subject } from '$lib/models/schedule.model';
 	import { formatHours, transformTextInColor } from '$lib/server/miscellaneous.utils';
 

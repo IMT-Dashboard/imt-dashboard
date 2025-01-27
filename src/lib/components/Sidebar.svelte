@@ -18,7 +18,7 @@
 			<img src="/logo.svg" alt="IMT" />
 			<h1>Dashboard</h1>
 		</div>
-		<div>
+		<div class="sidebar-items">
 			<select id="semester" name="semester" bind:value={selected}>
 				{#each semesters as semester}
 					<option value={semester}>Semestre {semester}</option>
@@ -60,11 +60,13 @@
 		display: flex;
 		flex-direction: row;
 		gap: 0.5rem;
+		margin-bottom: 2rem;
 	}
 
-	.icon {
-		margin-right: 1rem;
-		width: 1rem;
+	.sidebar-items {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
 	}
 
 	.link {
@@ -75,9 +77,22 @@
 		text-decoration: none;
 	}
 
+	.link:hover {
+		color: var(--primary);
+	}
+
+	select {
+		padding: 0.5rem;
+		border-radius: 0.5rem;
+		border: 1px solid var(--text);
+		background-color: var(--background);
+		color: var(--text);
+	}
+
 	h1 {
 		font-size: 1.2rem;
 		color: var(--text);
+		margin-bottom: 0;
 	}
 
 	img {

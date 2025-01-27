@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { get } from 'svelte/store';
-	import WeeklySubject from '$lib/components/schedule/WeeklySubject.svelte';
+	import WeeklySubject from '$lib/components/planning/WeeklySubject.svelte';
 	import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 	import Fa from 'svelte-fa';
 	import type { Subject } from '$lib/models/schedule.model';
 	import { getDayOfDate, isDateInWeek } from '$lib/server/miscellaneous.utils';
-	import { fillScheduleStore, scheduleStore } from '$lib/store/scheduleStore';
+	import { scheduleStore } from '$lib/store/schedule.store';
 	import CircleLoader from '$lib/components/CircleLoader.svelte';
+	import { fillScheduleStore } from '$lib/server/planning.util';
 
 	let schedule: Subject[] = $state([]);
 
@@ -28,15 +28,14 @@
 	}
 
 	async function loadSchedule() {
-		if (!Object.keys(get(schedule)).length) {
+		if (!Object.keys(schedule).length) {
 			await fillScheduleStore();
 		}
 		filterScheduleByWeek();
 	}
 
 	function filterScheduleByWeek() {
-		const _schedule = get(schedule);
-		weeklySchedule = _schedule
+		weeklySchedule = schedule
 			.filter((event) => isDateInWeek(event.start, day))
 			.reduce((acc: { [key: string]: Subject[] }, subject: Subject) => {
 				const dayKey = getDayOfDate(subject.start);
@@ -81,7 +80,7 @@
 	</div>
 	{#if error}
 		<p>Erreur lors du chargement de l'emploi du temps</p>
-	{:else if !get(scheduleStore).length}
+	{:else if !schedule.length}
 		<CircleLoader />
 	{:else if !Object.keys(weeklySchedule).length}
 		<p>Aucun cours pour cette semaine</p>
@@ -124,7 +123,7 @@
 	}
 
 	.week-button {
-		background-color: var(--primary-color);
+		background-color: var(--primary);
 		border: none;
 		color: white;
 		padding: 6px 12px;

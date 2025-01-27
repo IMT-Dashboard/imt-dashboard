@@ -1,10 +1,7 @@
-import { type Writable, writable } from 'svelte/store';
-import type { Subject } from '$lib/models/schedule.model';
-
-export const scheduleStore: Writable<Subject[]> = writable([]);
+import { scheduleStore } from '$lib/store/schedule.store';
 
 export async function fillScheduleStore() {
-	const currentSchedule = await fetch('/api/schedule');
+	const currentSchedule = await fetch('/api/planning');
 	if (!currentSchedule.ok) {
 		await fetch('/api/authentication/logout', {
 			method: 'POST'

@@ -6,14 +6,19 @@
 
 <div class="app">
 	<Sidebar />
-	<main class="main">
+	<main>
 		{@render children()}
 	</main>
 </div>
 
 <style>
+	main {
+		flex: 1;
+		color: var(--text);
+	}
 	.app {
 		background-color: var(--background);
 		display: flex;
+		flex-direction: row;
 	}
 </style>

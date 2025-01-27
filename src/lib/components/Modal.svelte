@@ -1,5 +1,5 @@
 <script lang="ts">
-	const { showModal } = $props<{ showModal: boolean }>();
+	const { showModal, header, children } = $props<{ showModal: boolean }>();
 
 	let dialog: HTMLDialogElement;
 
@@ -17,17 +17,19 @@
 
 <dialog
 	bind:this={dialog}
-	on:click|self={() => {
+	onclick={() => {
 		dialog.close();
 	}}
-	on:close={() => {
+	onclose={() => {
 		close();
 	}}
 	style="width:40%"
 >
-	<div on:click|stopPropagation>
-		<slot name="header" />
-		<slot />
+	<div onclick={(event) => event.stopPropagation()}>
+		{#if header}
+			{@render header()}
+		{/if}
+		{@render children()}
 	</div>
 </dialog>
 
