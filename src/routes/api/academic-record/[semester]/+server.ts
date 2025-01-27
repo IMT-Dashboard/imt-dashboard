@@ -1,23 +1,22 @@
-import { type Cookies, error, type RequestHandler } from '@sveltejs/kit';
+import { type Cookies, json, type RequestHandler } from '@sveltejs/kit';
 import { jwtDecode } from '$lib/server/jwt';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { type Promotion, Semester } from '$lib/data/semester';
-import type { Gpa, AcademicRecord, Module } from '$lib/models/grades.model';
+import type { AcademicRecord, Gpa, Module } from '$lib/models/grades.model';
 
 export const GET: RequestHandler = async ({ cookies, params }) => {
 	try {
 		let semester = parseInt(params.semester!);
-		if (!semester) error(400, 'Invalid semester');
+		if (!semester) return json({ message: 'Invalid semester' }, { status: 400 });
 		const user = jwtDecode(cookies);
-		if (!user) error(401, 'Unauthorized');
+		if (!user) return json({ message: 'Unauthorized: Invalid token' }, { status: 401 });
 
 		const academicRecord = await getAcademicRecord(semester, user.promotion, cookies);
 
 		return new Response(JSON.stringify(academicRecord), { status: 200 });
 	} catch (err) {
-		console.log(err);
-		error(500, 'Error while fetching academic record');
+		return json({ message: 'Error while fetching academic record' }, { status: 500 });
 	}
 };
 
@@ -86,7 +85,8 @@ function parseGrades(html: string, semester: number): [AcademicRecord, Module[]]
 			grades: [],
 			modules: [],
 			isAllowed: true
-		}
+		},
+		hasError: false
 	};
 
 	let modules: Module[] = [];

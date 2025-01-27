@@ -15,7 +15,7 @@
 </script>
 
 <div class="modules">
-    <h2>Modules</h2>
+    <h2 class="title">Modules</h2>
     <div class="modules-list">
         {#if modules && !error}
             {#each modules as module}
@@ -33,7 +33,7 @@
     .modules {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 10px;
     }
 
     .modules-list {
