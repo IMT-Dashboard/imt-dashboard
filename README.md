@@ -1,38 +1,39 @@
-# sv
+# IMT Dashboard
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+## Description
 
-## Creating a project
+This is a dashboard that allow student to view their grades and planning.
 
-If you're seeing this, you've probably already done this step. Congrats!
+**Key features:**
 
-```bash
-# create a new project in the current directory
-npx sv create
+- View grades
+- View planning (weekly)
 
-# create a new project in my-app
-npx sv create my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Installation (locally)
 
 ```bash
+git clone https://github.com/IMT-Dashboard/imt-dashboard.git
+cd imt-dashboard
+npm install
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
-
-To create a production version of your app:
+## Run tests
 
 ```bash
-npm run build
+npm run test
 ```
 
-You can preview the production build with `npm run preview`.
+## Pipeline
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+This project is using GitHub Actions for CI/CD.
+
+When pushing using a `tag`, the pipeline will deploy an image of the app to the Docker Hub.
+
+**Required secrets:**
+- `DOCKER_USERNAME`
+- `DOCKER_PASSWORD`
+- `JWT_SECRET`
+- `SALT_PASSWORD`
+- `KEY_PASSWORD`
+
