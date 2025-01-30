@@ -3,9 +3,9 @@ import { jwtSign } from '$lib/server/jwt';
 import { students } from '$lib/data/students';
 import FormData from 'form-data';
 import axios from 'axios';
-import type { Promotion } from '$lib/data/semester';
 import { decrypt, encrypt } from '$lib/server/password.utils';
 import type { User } from '$lib/models/user.model';
+import type { Promotion } from '$lib/data/semester';
 
 export const POST: RequestHandler = async ({ request, cookies }) => {
 	const formData = await request.formData();
