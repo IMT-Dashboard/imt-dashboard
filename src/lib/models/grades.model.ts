@@ -6,6 +6,7 @@ export interface AcademicRecord {
 		modules: Module[];
 		error?: string;
 	};
+
 	hasError: boolean;
 }
 

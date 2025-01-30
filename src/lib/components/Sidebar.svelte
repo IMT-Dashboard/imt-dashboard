@@ -4,25 +4,26 @@
 	import Fa from 'svelte-fa';
 	import { faCalendar } from '@fortawesome/free-solid-svg-icons/faCalendar';
 	import { faFolderOpen } from '@fortawesome/free-solid-svg-icons/faFolderOpen';
-	import {getPreviousSemesters, getUserFromJwt} from "$lib/utils";
-	import {currentSemester} from "../../stores/current-semester.store";
 	import {onMount} from "svelte";
+	import {currentSemester} from "../../stores/current-semester.store";
+	import {getPreviousSemesters, getUserFromJwt} from "$lib/utils";
+	import {faStar} from "@fortawesome/free-solid-svg-icons";
 
-	let promotion: Promotion;
-	let semesters: number[] = $state([]);
+    let promotion: Promotion;
+    let semesters: number[] = $state([]);
 
-	let selected = $state(CurrentSemester["infres16"]);
+    let selected = $state(CurrentSemester["infres16"]);
 
-	onMount(async () => {
-		const user = await getUserFromJwt();
-		promotion = user.promotion;
-		semesters = getPreviousSemesters(promotion);
-		selected = CurrentSemester[promotion];
-	})
+    onMount(async () => {
+        const user = await getUserFromJwt();
+        promotion = user.promotion;
+        semesters = getPreviousSemesters(promotion);
+        selected = CurrentSemester[promotion];
+    })
 
-	$effect(() => {
-		currentSemester.set(selected);
-	});
+    $effect(() => {
+        currentSemester.set(selected);
+    });
 </script>
 
 <div class="sidebar-container">
@@ -31,21 +32,27 @@
 			<img src="/logo.svg" alt="IMT" />
 			<h1>Dashboard</h1>
 		</div>
-		<div>
+		<div class="sidebar-items">
 			<select id="semester" name="semester" bind:value={selected}>
 				{#each semesters as semester}
 					<option value={semester}>Semestre {semester}</option>
 				{/each}
 			</select>
+			<a class="link" href="/">
+				<Fa icon={faStar} class="icon" />
+				Notes
+			</a>
 			<a class="link" href="/planning">
 				<Fa icon={faCalendar} class="icon" />
 				Planning
 			</a>
-			<a class="link" href="/documents">
+			<!--			<a class="link" href="/documents">-->
+			<a class="link">
 				<Fa icon={faFolderOpen} class="icon" />
 				Documents
 			</a>
-			<a class="link" href="/settings">
+			<!--			<a class="link" href="/settings">-->
+			<a class="link">
 				<Fa icon={faGear} class="icon" />
 				Paramètres
 			</a>
@@ -73,11 +80,13 @@
 		display: flex;
 		flex-direction: row;
 		gap: 0.5rem;
+		margin-bottom: 2rem;
 	}
 
-	.icon {
-		margin-right: 1rem;
-		width: 1rem;
+	.sidebar-items {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
 	}
 
 	.link {
@@ -88,9 +97,22 @@
 		text-decoration: none;
 	}
 
+	.link:hover {
+		color: var(--primary);
+	}
+
+	select {
+		padding: 0.5rem;
+		border-radius: 0.5rem;
+		border: 1px solid var(--text);
+		background-color: var(--background);
+		color: var(--text);
+	}
+
 	h1 {
 		font-size: 1.2rem;
 		color: var(--text);
+		margin-bottom: 0;
 	}
 
 	img {

@@ -9,7 +9,8 @@ export const GET: RequestHandler = async ({ cookies, params }) => {
 	try {
 		let semester = parseInt(params.semester!);
 		if (!semester) return json({ message: 'Invalid semester' }, { status: 400 });
-		const user = jwtDecode(cookies);
+		const authToken = cookies.get('authToken');
+		const user = jwtDecode(authToken);
 		if (!user) return json({ message: 'Unauthorized: Invalid token' }, { status: 401 });
 
 		const academicRecord = await getAcademicRecord(semester, user.promotion, cookies);
