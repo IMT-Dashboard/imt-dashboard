@@ -2,7 +2,7 @@
     import type {Grade} from "$lib/models/grades.model";
     import GradeItem from "$lib/components/grade/GradeItem.svelte";
     import {academicRecordStore} from "../../../stores/academic-record.store";
-    import {CurrentSemester} from "$lib/data/semester";
+    import {currentSemester} from "../../../stores/current-semester.store";
 
     let grades: Grade[] | null = $state(null);
     let error: boolean = $state(false);
@@ -10,7 +10,7 @@
     $effect(() => {
         const academicRecord = $academicRecordStore;
         error = academicRecord.hasError;
-        grades = academicRecord[CurrentSemester.infres16]?.grades ?? null;
+        grades = academicRecord[$currentSemester]?.grades ?? null;
     })
 </script>
 

@@ -2,7 +2,7 @@
     import type {Module} from "$lib/models/grades.model";
     import ModuleItem from "$lib/components/module/ModuleItem.svelte";
     import {academicRecordStore} from "../../../stores/academic-record.store";
-    import {CurrentSemester} from "$lib/data/semester";
+    import {currentSemester} from "../../../stores/current-semester.store";
 
     let modules: Module[] | null = $state(null);
     let error: boolean = $state(false);
@@ -10,7 +10,7 @@
     $effect(() => {
         const academicRecord = $academicRecordStore;
         error = academicRecord.hasError;
-        modules = academicRecord[CurrentSemester.infres16]?.modules;
+        modules = academicRecord[$currentSemester]?.modules;
     })
 </script>
 
