@@ -3,7 +3,9 @@ name: Build and Test Pipeline
 on:
   push:
     branches:
-      - '*'
+      - '*'  # Pour tous les pushs sur les branches
+    tags:
+      - '*'  # Pour tous les pushs de tags
 
 jobs:
   build-and-test:
@@ -20,7 +22,7 @@ jobs:
           echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> .env
 
       - name: Login to DockerHub
-        if: github.event.pull_request.merged == true || startsWith(github.ref, 'refs/tags/')
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Build Development Docker Image
@@ -31,25 +33,24 @@ jobs:
           docker run --rm --env-file .env imt-dashboard-app-dev npm run test
 
       - name: Build Production Docker Image
-        if: github.event.pull_request.merged == true || startsWith(github.ref, 'refs/tags/')
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
         run: docker build --target prod -t imt-dashboard-app .
 
       - name: Determine Tag for Docker Image
-        if: github.event.pull_request.merged == true || startsWith(github.ref, 'refs/tags/')
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
         id: get_tag
         run: |
           if [[ $GITHUB_REF == refs/tags/* ]]; then
             echo "RELEASE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
           else
             echo "RELEASE_TAG=${GITHUB_SHA}" >> $GITHUB_ENV
-          fi
 
       - name: Tag Docker Image
-        if: github.event.pull_request.merged == true || startsWith(github.ref, 'refs/tags/')
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
         run: |
           docker tag imt-dashboard-app ${{ secrets.DOCKER_USERNAME }}/imt-dashboard-app:${{ env.RELEASE_TAG }}
 
       - name: Push Docker Image to DockerHub
-        if: github.event.pull_request.merged == true || startsWith(github.ref, 'refs/tags/')
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/imt-dashboard-app:${{ env.RELEASE_TAG }}
