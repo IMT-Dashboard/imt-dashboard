@@ -33,7 +33,6 @@ jobs:
           docker run --rm --env-file .env imt-dashboard-app-dev npm run test
 
       - name: Build Production Docker Image
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
         run: docker build --target prod -t imt-dashboard-app .
 
       - name: Determine Tag for Docker Image
