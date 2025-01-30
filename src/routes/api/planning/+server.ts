@@ -8,7 +8,9 @@ export const GET: RequestHandler = async ({ cookies, fetch }) => {
 	const sessId = cookies.get('PHPSESSID');
 
 	const user = verifyAndDecode(cookies.get('authToken'));
-	if (!user) error(401, 'Unauthorized');
+	if (!user) {
+		throw error(401, 'Unauthorized');
+	}
 
 	const calendarResponse = await axios.get(
 		`https://webdfd.mines-ales.fr/planning-eleves/index.php?url=ics/eleve/${user.id}`,
@@ -20,6 +22,11 @@ export const GET: RequestHandler = async ({ cookies, fetch }) => {
 	);
 
 	let decodedData = calendarResponse.data.toString('latin1');
+
+	if (decodedData === '') {
+		throw error(404, 'Not found');
+	}
+
 	const parsedData = ical.parseICS(decodedData);
 	const events = Object.values(parsedData)
 		.filter((event) => event.type === 'VEVENT')
