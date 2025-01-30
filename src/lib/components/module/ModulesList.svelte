@@ -1,17 +1,17 @@
 <script lang="ts">
-	import type { Module } from '$lib/models/grades.model';
+	import type {Module} from '$lib/models/grades.model';
 	import ModuleItem from '$lib/components/module/ModuleItem.svelte';
-	import { academicRecordStore } from '../../../stores/academic-record.store';
-	import { CurrentSemester } from '$lib/data/semester';
+	import {academicRecordStore} from '../../../stores/academic-record.store';
+	import {currentSemester} from "../../../stores/current-semester.store";
 
 	let modules: Module[] | null = $state(null);
 	let error: boolean = $state(false);
 
-	$effect(() => {
-		const academicRecord = $academicRecordStore;
-		error = academicRecord.hasError;
-		modules = academicRecord[CurrentSemester.infres16]?.modules;
-	});
+    $effect(() => {
+        const academicRecord = $academicRecordStore;
+        error = academicRecord.hasError;
+        modules = academicRecord[$currentSemester]?.modules;
+    })
 </script>
 
 <div class="modules">

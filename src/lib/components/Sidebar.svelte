@@ -1,15 +1,29 @@
 <script lang="ts">
-	import { CurrentSemester, type Promotion } from '$lib/data/semester';
+	import { CurrentSemester, type Promotion, Semester } from '$lib/data/semester';
 	import { faGear } from '@fortawesome/free-solid-svg-icons/faGear';
+	import Fa from 'svelte-fa';
 	import { faCalendar } from '@fortawesome/free-solid-svg-icons/faCalendar';
 	import { faFolderOpen } from '@fortawesome/free-solid-svg-icons/faFolderOpen';
-	import { getPreviousSemesters } from '$lib/utils';
-	import Fa from 'svelte-fa';
+	import {onMount} from "svelte";
+	import {currentSemester} from "../../stores/current-semester.store";
+	import {getPreviousSemesters, getUserFromJwt} from "$lib/utils";
+	import {faStar} from "@fortawesome/free-solid-svg-icons";
 
-	let promotion: Promotion = 'infres16'; // TODO: Do not use hardcoded value
-	let semesters: number[] = getPreviousSemesters(promotion);
+    let promotion: Promotion;
+    let semesters: number[] = $state([]);
 
-	let selected = $state(CurrentSemester[promotion]);
+    let selected = $state(CurrentSemester["infres16"]);
+
+    onMount(async () => {
+        const user = await getUserFromJwt();
+        promotion = user.promotion;
+        semesters = getPreviousSemesters(promotion);
+        selected = CurrentSemester[promotion];
+    })
+
+    $effect(() => {
+        currentSemester.set(selected);
+    });
 </script>
 
 <div class="sidebar-container">
@@ -24,6 +38,10 @@
 					<option value={semester}>Semestre {semester}</option>
 				{/each}
 			</select>
+			<a class="link" href="/">
+				<Fa icon={faStar} class="icon" />
+				Notes
+			</a>
 			<a class="link" href="/planning">
 				<Fa icon={faCalendar} class="icon" />
 				Planning

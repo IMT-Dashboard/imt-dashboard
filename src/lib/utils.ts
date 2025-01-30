@@ -17,3 +17,12 @@ export function getPreviousSemesters(promotion: Promotion) {
 	const currentSemester = CurrentSemester[promotion];
 	return semestersForPromotion.filter((semester) => semester <= currentSemester);
 }
+
+export async function getUserFromJwt() {
+	const response = await fetch('/api/authentication/user');
+	if (!response.ok) {
+		console.error('Error fetching user data');
+		return;
+	}
+	return await response.json();
+}

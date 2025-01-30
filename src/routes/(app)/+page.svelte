@@ -4,7 +4,8 @@
 	import ModulesList from '$lib/components/module/ModulesList.svelte';
 	import type { AcademicRecord } from '$lib/models/grades.model';
 	import { academicRecordStore } from '../../stores/academic-record.store';
-	import { getPreviousSemesters } from '$lib/utils';
+    import {getPreviousSemesters, getUserFromJwt} from '$lib/utils';
+    import {onMount} from "svelte";
 
 	let items = [GradesList, ModulesList];
 
@@ -13,10 +14,10 @@
 	let gap = 20;
 	let width: number, height: number;
 
-	$effect(() => {
-		// TODO STUB VALUE
-		fetchAcademicRecords(getPreviousSemesters('infres16'));
-	});
+    onMount(async () => {
+        const user = await getUserFromJwt();
+        await fetchAcademicRecords(getPreviousSemesters(user.promotion));
+    });
 
 	async function fetchAcademicRecords(semesters: number[]) {
 		const academicRecord: AcademicRecord = { hasError: false };
