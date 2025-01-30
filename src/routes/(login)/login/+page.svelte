@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import type { Feedback } from '$lib/models/feedback.model';
 	import CircleLoader from '$lib/components/CircleLoader.svelte';
+	import { setPlanningLoadedState } from '$lib/store/app.store';
 
 	let feedback: Feedback | null = $state(null);
 	let username = $state('');
@@ -14,14 +15,48 @@
 		if (keepConnected) {
 			const { username, encryptedPassword } = JSON.parse(keepConnected);
 			login(username, encryptedPassword, true);
+			planningLogin(username, encryptedPassword, true);
 		}
 	});
 
-	async function handleSubmit() {
+	async function handleSubmit(event: Event) {
+		event.preventDefault();
 		isConnecting = true;
 		feedback = null;
 
 		await login(username, password);
+		planningLogin(username, password);
+	}
+
+	async function planningLogin(username: string, password: string, isEncrypted = false) {
+		setPlanningLoadedState(false);
+		const formData = new FormData();
+		formData.append('username', username);
+		formData.append(isEncrypted ? 'encryptedPassword' : 'password', password);
+
+		try {
+			const response = await fetch('/api/authentication/planning/login', {
+				method: 'POST',
+				body: formData
+			});
+			if (response.ok) {
+				setPlanningLoadedState(true);
+			} else {
+				localStorage.removeItem('keepConnected');
+				feedback = {
+					type: 'error',
+					message: 'Une erreur est survenue lors de la connexion au planning'
+				};
+			}
+		} catch (err: any) {
+			console.error(err);
+			feedback = {
+				type: 'error',
+				message: 'Une erreur serveur est survenue'
+			};
+		} finally {
+			isConnecting = false;
+		}
 	}
 
 	async function login(username: string, password: string, isEncrypted = false) {
@@ -66,7 +101,7 @@
 </script>
 
 <div class="login-page">
-	<form on:submit|preventDefault={handleSubmit}>
+	<form onsubmit={handleSubmit}>
 		<h2>Connexion</h2>
 		<div class="label-input">
 			<label for="username">Nom d'utilisateur</label>

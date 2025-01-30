@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { CurrentSemester, type Promotion, Semester } from '$lib/data/semester';
+	import { CurrentSemester, type Promotion } from '$lib/data/semester';
 	import { faGear } from '@fortawesome/free-solid-svg-icons/faGear';
-	import Fa from 'svelte-fa';
 	import { faCalendar } from '@fortawesome/free-solid-svg-icons/faCalendar';
 	import { faFolderOpen } from '@fortawesome/free-solid-svg-icons/faFolderOpen';
-	import {getPreviousSemesters} from "$lib/utils";
+	import { getPreviousSemesters } from '$lib/utils';
+	import Fa from 'svelte-fa';
 
 	let promotion: Promotion = 'infres16'; // TODO: Do not use hardcoded value
 	let semesters: number[] = getPreviousSemesters(promotion);
@@ -18,7 +18,7 @@
 			<img src="/logo.svg" alt="IMT" />
 			<h1>Dashboard</h1>
 		</div>
-		<div>
+		<div class="sidebar-items">
 			<select id="semester" name="semester" bind:value={selected}>
 				{#each semesters as semester}
 					<option value={semester}>Semestre {semester}</option>
@@ -28,11 +28,13 @@
 				<Fa icon={faCalendar} class="icon" />
 				Planning
 			</a>
-			<a class="link" href="/documents">
+			<!--			<a class="link" href="/documents">-->
+			<a class="link">
 				<Fa icon={faFolderOpen} class="icon" />
 				Documents
 			</a>
-			<a class="link" href="/settings">
+			<!--			<a class="link" href="/settings">-->
+			<a class="link">
 				<Fa icon={faGear} class="icon" />
 				Paramètres
 			</a>
@@ -60,11 +62,13 @@
 		display: flex;
 		flex-direction: row;
 		gap: 0.5rem;
+		margin-bottom: 2rem;
 	}
 
-	.icon {
-		margin-right: 1rem;
-		width: 1rem;
+	.sidebar-items {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
 	}
 
 	.link {
@@ -75,9 +79,22 @@
 		text-decoration: none;
 	}
 
+	.link:hover {
+		color: var(--primary);
+	}
+
+	select {
+		padding: 0.5rem;
+		border-radius: 0.5rem;
+		border: 1px solid var(--text);
+		background-color: var(--background);
+		color: var(--text);
+	}
+
 	h1 {
 		font-size: 1.2rem;
 		color: var(--text);
+		margin-bottom: 0;
 	}
 
 	img {

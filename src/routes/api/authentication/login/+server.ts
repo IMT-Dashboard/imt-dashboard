@@ -1,11 +1,10 @@
 import { json, type RequestHandler } from '@sveltejs/kit';
 import { jwtSign } from '$lib/server/jwt';
 import { students } from '$lib/data/students';
-import type { User } from '$lib/models/user.model';
+import type { User } from '$lib/models/user';
 import FormData from 'form-data';
 import axios from 'axios';
-import { decrypt, encrypt } from '$lib/server/password-utils';
-import type { Promotion } from '$lib/data/semester';
+import { decrypt, encrypt } from '$lib/server/password.utils';
 
 export const POST: RequestHandler = async ({ request, cookies }) => {
 	const formData = await request.formData();
